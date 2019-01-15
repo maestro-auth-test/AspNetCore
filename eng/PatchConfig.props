@@ -24,6 +24,9 @@ Later on, this will be checked using this condition:
       Microsoft.AspNetCore.WebSockets;
       Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore;
     </PackagesInPatch>
+    <PackagesInPatch Condition=" '$(VersionPrefix)' == '2.2.2' ">
+      Microsoft.AspNetCore.Routing;
+    </PackagesInPatch>
   </PropertyGroup>
 
 </Project>
