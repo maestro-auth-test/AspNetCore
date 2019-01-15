@@ -26,6 +26,12 @@ namespace Microsoft.AspNetCore.Components.Rendering
         private int _lastEventHandlerId = 0;
         private readonly Dictionary<int, EventHandlerInvoker> _eventBindings = new Dictionary<int, EventHandlerInvoker>();
         private List<Task> _pendingTasks = new List<Task>();
+
+        // We need to introduce locking as we don't know if we are executing
+        // under a synchronization context that limits the ammount of concurrency
+        // that can happen when async callbacks are executed.
+        // As a result, we have to protect the _pendingTask list and the
+        // _batchBuilder render queue from concurrent modifications.
         private object _asyncWorkLock = new object();
 
         /// <summary>
